@@ -12,9 +12,9 @@ import main.GamePanel;
 public class TilesManager {
 	GamePanel gp;
 
-	Tile[] tiles;
+	public Tile[] tiles;
 //	tile flags in txt file
-	int mapTileNum[][];
+	public int mapTileNum[][];
 	String mapFilePath = "/maps/world01.txt";
 
 	public TilesManager(GamePanel gp) {
@@ -32,12 +32,15 @@ public class TilesManager {
 			tiles[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
 			tiles[1] = new Tile();
 			tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
+			tiles[1].collision = true;
 			tiles[2] = new Tile();
 			tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water.png"));
+			tiles[2].collision = true;
 			tiles[3] = new Tile();
 			tiles[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/earth.png"));
 			tiles[4] = new Tile();
 			tiles[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tree.png"));
+			tiles[4].collision = true;
 			tiles[5] = new Tile();
 			tiles[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/sand.png"));
 

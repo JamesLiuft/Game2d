@@ -26,11 +26,11 @@ public class Player extends Entity {
 		this.keyH = keyH;
 		screenX = gp.screenWidth / 2 - gp.tileSize / 2;
 		screenY = gp.screenHeight / 2 - gp.tileSize / 2;
-		
-		solidArea = new Rectangle(0,0,gp.tileSize,gp.tileSize);
-		
+
+		solidArea = new Rectangle(8, 16, 32, 32);
+
 		setDefaultValues();
-		
+
 		getPlayerImage();
 
 	}
@@ -65,22 +65,20 @@ public class Player extends Entity {
 	 * update player status
 	 */
 	public void update() {
-		if (keyH.upPressed) {
-			direction = "up";
-			worldY -= speed;
-		} else if (keyH.downPressed) {
-			direction = "down";
-			worldY += speed;
-		} else if (keyH.leftPressed) {
-			direction = "left";
-			worldX -= speed;
-		} else if (keyH.rightPressed) {
-			direction = "right";
-			worldX += speed;
-
+		if(keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed) {
+			moving();
+		}else {
+			spriteRunningShow();
 		}
+
+	}
+
+	/**
+	 * show sprite running by changing {@code spriteNum} flag
+	 */
+	private void spriteRunningShow() {
 		spriteCounter++;
-		if (spriteCounter > 10) {
+		if (spriteCounter > 12) {
 			if (spriteNum == 1) {
 				spriteNum = 2;
 			} else if (spriteNum == 2) {
@@ -88,6 +86,48 @@ public class Player extends Entity {
 			}
 			spriteCounter = 0;
 		}
+		
+	}
+
+	/**
+	 * 
+	 */
+	private void moving() {
+		
+		if (keyH.upPressed) {
+			direction = "up";
+		} else if (keyH.downPressed) {
+			direction = "down";
+		} else if (keyH.leftPressed) {
+			direction = "left";
+		} else if (keyH.rightPressed) {
+			direction = "right";
+
+		}
+//		check tile collision
+		collisionOn = false;
+		gp.cChecker.checkTile(this);
+//		if collision is false player can move,otherwise it can not move
+		if (collisionOn == false) {
+			switch (direction) {
+			case "up":
+				worldY -= speed;
+				break;
+			case "down":
+				worldY += speed;
+				break;
+			case "left":
+				worldX -= speed;
+				break;
+			case "right":
+				worldX += speed;
+				break;
+
+			default:
+				break;
+			}
+		}
+		spriteRunningShow();
 
 	}
 
