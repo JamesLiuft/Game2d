@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import entity.Player;
+import objects.SuperObject;
 import tiles.TilesManager;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -57,6 +58,10 @@ public class GamePanel extends JPanel implements Runnable {
 //	Collision check
 	public CollisionChecker cChecker = new CollisionChecker(this);
 
+	public AssetSetter assetSetter = new AssetSetter(this);
+//	Objects
+	public SuperObject objs[] = new SuperObject[10];
+
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 		this.setBackground(Color.black);
@@ -70,6 +75,10 @@ public class GamePanel extends JPanel implements Runnable {
 
 		this.setFocusable(true);
 
+	}
+
+	public void setupGame() {
+		assetSetter.setObject();
 	}
 
 	/**
@@ -125,9 +134,25 @@ public class GamePanel extends JPanel implements Runnable {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
+//		tile
 		tileM.draw(g2);
+//		objects
+		drawObject(g2);
+//		player
 		player.draw(g2);
 		g2.dispose();
+	}
+
+	/**
+	 * 
+	 */
+	private void drawObject(Graphics2D g2) {
+		for (SuperObject obj : objs) {
+			if(obj!=null) {
+				obj.draw(g2, this);
+			}
+		}
+		
 	}
 
 	@Override
