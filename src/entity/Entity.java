@@ -9,12 +9,13 @@ import java.awt.image.BufferedImage;
  * @version 1.0
  */
 public class Entity {
-	public int x,y;
+	public int worldX,worldY;
 	public int speed;
 	
 	public BufferedImage up1,up2,down1,down2,left1,left2,right1,right2;
 	public String direction;
-//	
+//	sprite counter
 	public int spriteCounter = 0;
+//	sprite num flag for move
 	public int spriteNum = 1;
 }
