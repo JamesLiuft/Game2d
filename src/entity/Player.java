@@ -1,7 +1,7 @@
 package entity;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
@@ -26,7 +26,11 @@ public class Player extends Entity {
 		this.keyH = keyH;
 		screenX = gp.screenWidth / 2 - gp.tileSize / 2;
 		screenY = gp.screenHeight / 2 - gp.tileSize / 2;
+		
+		solidArea = new Rectangle(0,0,gp.tileSize,gp.tileSize);
+		
 		setDefaultValues();
+		
 		getPlayerImage();
 
 	}

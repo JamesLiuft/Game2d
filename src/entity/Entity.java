@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 /**
@@ -18,4 +19,8 @@ public class Entity {
 	public int spriteCounter = 0;
 //	sprite num flag for move
 	public int spriteNum = 1;
+//	for collision
+	public Rectangle solidArea;
+	public boolean collisionOn = false;
+	
 }
