@@ -18,6 +18,14 @@ public class OBJ_Door extends SuperObject {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		collision = true;
 	}
+
+	@Override
+	public void doAction() {
+		super.doAction();
+		this.image = null;
+	}
+	
 	
 }

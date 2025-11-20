@@ -8,15 +8,17 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
+import objects.SuperObject;
 
 /**
  * @author James
- * @date 2025Äê10ÔÂ11ÈÕ 22µã11·Ö
+ * @date 2025å¹´10æœˆ11æ—¥ 22ç‚¹11åˆ†
  * @version 1.0
  */
 public class Player extends Entity {
 	GamePanel gp;
 	KeyHandler keyH;
+    public int hasKey = 0;
 
 	public final int screenX, screenY;
 
@@ -28,6 +30,9 @@ public class Player extends Entity {
 		screenY = gp.screenHeight / 2 - gp.tileSize / 2;
 
 		solidArea = new Rectangle(8, 16, 32, 32);
+
+		solidAreaDefaultX = solidArea.x;
+		solidAreaDefaultY = solidArea.y;
 
 		setDefaultValues();
 
@@ -65,9 +70,9 @@ public class Player extends Entity {
 	 * update player status
 	 */
 	public void update() {
-		if(keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed) {
+		if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 			moving();
-		}else {
+		} else {
 			spriteRunningShow();
 		}
 
@@ -86,14 +91,14 @@ public class Player extends Entity {
 			}
 			spriteCounter = 0;
 		}
-		
+
 	}
 
 	/**
 	 * 
 	 */
 	private void moving() {
-		
+
 		if (keyH.upPressed) {
 			direction = "up";
 		} else if (keyH.downPressed) {
@@ -106,7 +111,13 @@ public class Player extends Entity {
 		}
 //		check tile collision
 		collisionOn = false;
+//		check player's collision with tiles
 		gp.cChecker.checkTile(this);
+
+//		check object's collision
+		int index = gp.cChecker.checkObject(this, true);
+		pickUpObject(index);
+
 //		if collision is false player can move,otherwise it can not move
 		if (collisionOn == false) {
 			switch (direction) {
@@ -130,6 +141,34 @@ public class Player extends Entity {
 		spriteRunningShow();
 
 	}
+
+    public void pickUpObject(int i){
+        if(i != 999){
+            String objectName = gp.objs[i].name;
+            switch (objectName){
+                case "Key":
+                    hasKey++;
+                    gp.objs[i] = null;
+                    System.out.println("keys num:" + hasKey);
+                    break;
+                case "Door":
+                    if(hasKey > 0){
+                        gp.objs[i] = null;
+                        hasKey--;
+                    }
+                    System.out.println("keys remain:" + hasKey);
+                    break;
+                case "Boots":
+                    speed += 2;
+                    gp.objs[i] = null;
+                    break;
+                case "Chest":
+                    break;
+            }
+        }
+
+    }
+
 
 	/**
 	 * draw player's image

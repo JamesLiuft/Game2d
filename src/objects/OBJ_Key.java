@@ -19,5 +19,15 @@ public class OBJ_Key extends SuperObject {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void doAction() {
+		super.doAction();
+		this.disappear();
+	}
+
+	private void disappear() {
+		this.image =null;
+	}
 	
 }
