@@ -51,9 +51,12 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// KeyHandler
 	KeyHandler keyH = new KeyHandler();
-
-	// create player
-
+//	bgm,se player
+	Sound music = new Sound();
+	Sound se = new Sound();
+//	UI manager
+	public UI ui = new UI(this);
+// create player
 	public Player player = new Player(this, keyH);
 //	Collision check
 	public CollisionChecker cChecker = new CollisionChecker(this);
@@ -77,8 +80,12 @@ public class GamePanel extends JPanel implements Runnable {
 
 	}
 
+	/**
+	 * game settings
+	 */
 	public void setupGame() {
 		assetSetter.setObject();
+		playMusic(0);
 	}
 
 	/**
@@ -140,7 +147,29 @@ public class GamePanel extends JPanel implements Runnable {
 		drawObject(g2);
 //		player
 		player.draw(g2);
+		ui.draw(g2);
 		g2.dispose();
+	}
+
+	/**
+	 * @param i
+	 */
+	public void playMusic(int i) {
+		music.setFile(i);
+		music.play();
+		music.loop();
+	}
+
+	/**
+	 * 
+	 */
+	public void stopMusic() {
+		music.stop();
+	}
+
+	public void playSE(int i) {
+		se.setFile(i);
+		se.play();
 	}
 
 	/**
@@ -148,11 +177,11 @@ public class GamePanel extends JPanel implements Runnable {
 	 */
 	private void drawObject(Graphics2D g2) {
 		for (SuperObject obj : objs) {
-			if(obj!=null) {
+			if (obj != null) {
 				obj.draw(g2, this);
 			}
 		}
-		
+
 	}
 
 	@Override
