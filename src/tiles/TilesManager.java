@@ -1,6 +1,7 @@
 package tiles;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,10 +9,11 @@ import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 
 import main.GamePanel;
+import main.UtilityTool;
 
 public class TilesManager {
 	GamePanel gp;
-
+	UtilityTool uTool = new UtilityTool();
 	public Tile[] tiles;
 //	tile flags in txt file
 	public int mapTileNum[][];
@@ -28,28 +30,28 @@ public class TilesManager {
 
 	private void getTileImage() {
 		try {
-			tiles[0] = new Tile();
-			tiles[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
-			tiles[1] = new Tile();
-			tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
-			tiles[1].collision = true;
-			tiles[2] = new Tile();
-			tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water.png"));
-			tiles[2].collision = true;
-			tiles[3] = new Tile();
-			tiles[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/earth.png"));
-			tiles[4] = new Tile();
-			tiles[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tree.png"));
-			tiles[4].collision = true;
-			tiles[5] = new Tile();
-			tiles[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/sand.png"));
-
+			
+			setUpTiles(0,"grass",false);
+			setUpTiles(1,"wall",true);
+			setUpTiles(2,"water",true);
+			setUpTiles(3,"earth",false);
+			setUpTiles(4,"tree",true);
+			setUpTiles(5,"sand",false);
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
 
+	private void setUpTiles(int index,String imageName,boolean collision) {
+		try {
+			tiles[index] = new Tile();
+			tiles[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/"+imageName+".png"));
+			tiles[index].image = uTool.scaleImage(tiles[index].image, gp.tileSize, gp.tileSize);
+			tiles[index].collision = collision;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 	/**
 	 * load map
 	 */

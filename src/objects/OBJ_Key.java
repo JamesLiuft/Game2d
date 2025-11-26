@@ -2,6 +2,8 @@ package objects;
 
 import javax.imageio.ImageIO;
 
+import main.GamePanel;
+
 /**
  * @author James
  * @date 2025Äê11ÔÂ19ÈÕ
@@ -10,11 +12,12 @@ import javax.imageio.ImageIO;
  */
 public class OBJ_Key extends SuperObject {
 
-	public OBJ_Key() {
+	public OBJ_Key(GamePanel gp) {
 		super();
 		name = "Key";
 		try {
 			image = ImageIO.read(getClass().getResourceAsStream("/objects/key.png"));
+			image = ut.scaleImage(image, gp.tileSize, gp.tileSize);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

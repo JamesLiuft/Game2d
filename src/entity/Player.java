@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.UtilityTool;
 import objects.SuperObject;
 
 /**
@@ -19,7 +20,7 @@ public class Player extends Entity {
 	GamePanel gp;
 	KeyHandler keyH;
     public int hasKey = 0;
-
+    UtilityTool utool = new UtilityTool();
 	public final int screenX, screenY;
 
 	public Player(GamePanel gp, KeyHandler keyH) {
@@ -52,18 +53,33 @@ public class Player extends Entity {
 
 	public void getPlayerImage() {
 		try {
-			up1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_1.png"));
-			up2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_2.png"));
-			down1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_1.png"));
-			down2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_2.png"));
-			left1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_1.png"));
-			left2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_2.png"));
-			right1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_1.png"));
-			right2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_2.png"));
+			up1 = setUpPlayer("boy_up_1");
+			up2 = setUpPlayer("boy_up_2");
+			down1 = setUpPlayer("boy_down_1");
+			down2 = setUpPlayer("boy_down_2");
+			left1 = setUpPlayer("boy_left_1");
+			left2 = setUpPlayer("boy_left_2");
+			right1 = setUpPlayer("boy_right_1");
+			right2 = setUpPlayer("boy_right_2");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * @param imageName
+	 * @return
+	 */
+	private BufferedImage setUpPlayer(String imageName) {
+		BufferedImage image = null;
+		try {
+			BufferedImage original = ImageIO.read(getClass().getResourceAsStream("/player/"+imageName+".png"));
+			image =  utool.scaleImage(original, gp.tileSize, gp.tileSize);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return image;
 	}
 
 	/**
