@@ -17,12 +17,12 @@ public class TilesManager {
 	public Tile[] tiles;
 //	tile flags in txt file
 	public int mapTileNum[][];
-	String mapFilePath = "/maps/world01.txt";
+	String mapFilePath = "/maps/worldV2.txt";
 
 	public TilesManager(GamePanel gp) {
 		super();
 		this.gp = gp;
-		tiles = new Tile[10];
+		tiles = new Tile[50];
 		mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 		getTileImage();
 		loadMap(mapFilePath);
@@ -30,13 +30,54 @@ public class TilesManager {
 
 	private void getTileImage() {
 		try {
+//			PLACEHOLDER
+			setUpTiles(0,"grass00",false);
+			setUpTiles(1,"grass00",false);
+			setUpTiles(2,"grass00",false);
+			setUpTiles(3,"grass00",false);
+			setUpTiles(4,"grass00",false);
+			setUpTiles(5,"grass00",false);
+			setUpTiles(6,"grass00",false);
+			setUpTiles(7,"grass00",false);
+			setUpTiles(8,"grass00",false);
+			setUpTiles(9,"grass00",false);
+//			PLACEHOLDER
 			
-			setUpTiles(0,"grass",false);
-			setUpTiles(1,"wall",true);
-			setUpTiles(2,"water",true);
-			setUpTiles(3,"earth",false);
-			setUpTiles(4,"tree",true);
-			setUpTiles(5,"sand",false);
+			setUpTiles(10,"grass00",false);
+			setUpTiles(11,"grass01",false);
+			
+			setUpTiles(12,"water00",true);
+			setUpTiles(13,"water01",true);
+			setUpTiles(14,"water02",true);
+			setUpTiles(15,"water03",true);
+			setUpTiles(16,"water04",true);
+			setUpTiles(17,"water05",true);
+			setUpTiles(18,"water06",true);
+			setUpTiles(19,"water07",true);
+			setUpTiles(20,"water08",true);
+			setUpTiles(21,"water09",true);
+			setUpTiles(22,"water10",true);
+			setUpTiles(23,"water11",true);
+			setUpTiles(24,"water12",true);
+			setUpTiles(25,"water13",true);
+			
+			setUpTiles(26,"road00",false);
+			setUpTiles(27,"road01",false);
+			setUpTiles(28,"road02",false);
+			setUpTiles(29,"road03",false);
+			setUpTiles(30,"road04",false);
+			setUpTiles(31,"road05",false);
+			setUpTiles(32,"road06",false);
+			setUpTiles(33,"road07",false);
+			setUpTiles(34,"road08",false);
+			setUpTiles(35,"road09",false);
+			setUpTiles(36,"road10",false);
+			setUpTiles(37,"road11",false);
+			setUpTiles(38,"road12",false);
+
+			setUpTiles(39,"earth",false);
+			setUpTiles(40,"wall",true);
+			setUpTiles(41,"tree",true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
